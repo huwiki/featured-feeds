@@ -12,17 +12,17 @@ settings = {
     'days_of_week': [1,2,3,4,5,6,7], # Mo: 1, Su: 7
     'output_filename': '/home/t/tgergo/public_html/sa.xml',
     'cache_filename': '/home/t/tgergo/temp/sa_cache.pickle',
-    'base_url': 'http://hu.wikipedia.org/',
-    'rss_title': u'WikipÈdia: …vfordulÛk',
-    'rss_link': 'http://hu.wikipedia.org/wiki/Kezd%C5%91lap',
-    'rss_description': u'Aktu·lis ÈvfordulÛk a magyar WikipÈdia kezdılapj·rÛl'
+    'base_url': 'https://hu.wikipedia.org/',
+    'rss_title': u'Wikip√©dia: √âvfordul√≥k',
+    'rss_link': 'https://hu.wikipedia.org/wiki/Kezd%C5%91lap',
+    'rss_description': u'Aktu√°lis √©vfordul√≥k a magyar Wikip√©dia kezd√µlapj√°r√≥l'
 }
 feed = WPFeed(settings)
-template_title = u'…vfordulÛk/\'%(years1)s, \'%(years2)s/%(month)02d-%(day)02d'
+template_title = u'√âvfordul√≥k/‚Äô%(years1)s √©s ‚Äô%(years2)s/%(month)02d-%(day)02d'
 
 def get_content(date):
     title = template_title % date_vars(date)
-    url = 'http://hu.wikipedia.org/w/index.php?title=Sablon:%s&action=render' % encode_title(title)
+    url = 'https://hu.wikipedia.org/w/index.php?title=Sablon:%s&action=render' % encode_title(title)
     content = feed.get_html(url, date).decode('utf-8')
     return content
 
@@ -38,8 +38,8 @@ def main():
     items = []
     for date in dates:
         items.append({
-            'title'  : u'%(monthname)s %(day)d: …vfordulÛk' % date_vars(date),
-            'url'    : 'http://hu.wikipedia.org/wiki/#%(years1)d/%(month)d/%(day)d' % date_vars(date),
+            'title'  : u'%(monthname)s %(day)d.: √âvfordul√≥k' % date_vars(date),
+            'url'    : 'https://hu.wikipedia.org/wiki/Speci√°lis:FeedItem/onthisday/%(years1)d/%(month)d/%(day)d000000/hu' % date_vars(date),
             'content': get_content(date),
         })
     feed.rss(items)
